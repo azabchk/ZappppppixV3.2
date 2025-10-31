@@ -1,0 +1,14 @@
+# Byte‑code files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment and secrets files
+.env
+
+# Editor artefacts
+.vscode/
+.idea/
+
+# Database
+postgres_data/
