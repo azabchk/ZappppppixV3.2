@@ -6,6 +6,7 @@ global engine and session factory are created on import.  Models defined in
 """
 
 from sqlalchemy import create_engine
+from app.settings import get_settings
 from sqlalchemy.orm import sessionmaker, Session, declarative_base
 
 from .settings import get_settings
@@ -14,6 +15,7 @@ from .settings import get_settings
 # Obtain settings on import.  Using a function avoids reading environment
 # variables until this module is first imported.
 settings = get_settings()
+
 
 # Create the SQLAlchemy engine.  `pool_pre_ping` helps avoid stale connections.
 engine = create_engine(settings.database_url, pool_pre_ping=True)

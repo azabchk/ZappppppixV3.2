@@ -1,32 +1,32 @@
-version: '3.8'
-
 services:
-  api:
-    build: .
-    depends_on:
-      - db
-    environment:
-      # Provide the database URL expected by SQLAlchemy.  Note that the service name
-      # is used as the host name for the database container.
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/zappppppix
-      # Administrator token used to bootstrap the admin user.  Change this in your .env.
-      - ADMIN_TOKEN=rVT0ZJi2gKnvITTKcyp6O7XB4HjDC93BKrOowtbsOtU=
-      # Optional default instruments.  If omitted, RUB and USD will be created.
-      - DEFAULT_INSTRUMENTS=RUB,USD
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
-
   db:
     image: postgres:13
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=zappppppix
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: zappppppix
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/zappppppix
+      ADMIN_TOKEN: rVT0ZJi2gKnvITTKcyp6O7XB4HjDC93BKrOowtbsOtU=
+      DEFAULT_INSTRUMENTS: RUB,USD
+    ports:
+      - "8000:8000"
     restart: unless-stopped
 
 volumes:
