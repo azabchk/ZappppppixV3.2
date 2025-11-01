@@ -19,8 +19,21 @@ services:
       - key: DEFAULT_INSTRUMENTS
         value: "RUB,USD"
 
-databases:
-  - name: zappppppix-db
+services:
+  - type: web
+    name: zappppppix-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
     plan: free
-    databaseName: zappppppix
-    user: zappppppix
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        value: "postgresql://coding_with_azab_user:UMYpTCpTCPa0xkI07ZJuHgBvCPoTmFAC@dpg-d3vppd6r433s73dgeg10-a/coding_with_azab"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: DEFAULT_INSTRUMENTS
+        value: "RUB,USD"
+
+# REMOVE the databases section completely
