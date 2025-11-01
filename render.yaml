@@ -11,6 +11,6 @@ services:
       - key: DATABASE_URL
         value: "postgresql://coding_with_azab_user:UMYpTCpTCPa0xkI07ZJuHgBvCPoTmFAC@dpg-d3vppd6r433s73dgeg10-a/coding_with_azab"
       - key: ADMIN_TOKEN
-        generateValue: true
+        value: "rVT0ZJi2gKnvITTKcyp6O7XB4HjDC93BKrOowtbsOtU="  # Fixed token
       - key: DEFAULT_INSTRUMENTS
         value: "RUB,USD"
