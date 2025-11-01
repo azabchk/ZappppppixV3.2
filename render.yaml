@@ -1,24 +1,3 @@
-# render.yaml
-services:
-  - type: web
-    name: zappppppix-api
-    runtime: docker              # use runtime for Docker
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
-    autoDeploy: true
-    plan: free
-    healthCheckPath: /health     # your FastAPI health endpoint
-
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: zappppppix-db
-          property: connectionString  # injects full Postgres URL
-      - key: ADMIN_TOKEN
-        generateValue: true
-      - key: DEFAULT_INSTRUMENTS
-        value: "RUB,USD"
-
 services:
   - type: web
     name: zappppppix-api
@@ -35,5 +14,3 @@ services:
         generateValue: true
       - key: DEFAULT_INSTRUMENTS
         value: "RUB,USD"
-
-# REMOVE the databases section completely
