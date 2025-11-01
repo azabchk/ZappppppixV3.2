@@ -1,24 +1,23 @@
 services:
-- type: web
-name: zappppppix-api
-env: docker
-dockerfilePath: ./Dockerfile
-dockerContext: .
-autoDeploy: true
-plan: free # or starter
-healthCheckPath: /health
-envVars:
-- key: DATABASE_URL
-fromDatabase:
-name: zappppppix-db
-property: connectionString # Injects the full DB URL
-- key: ADMIN_TOKEN
-generateValue: true # Or set a specific value below
-- key: DEFAULT_INSTRUMENTS
-value: "RUB,USD"
-
+  - type: web
+    name: zappppppix-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zappppppix-db
+          property: connectionString
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: DEFAULT_INSTRUMENTS
+        value: "RUB,USD"
 databases:
-- name: zappppppix-db
-databaseName: zappppppix
-user: zappppppix
-plan: free
+  - name: zappppppix-db
+    databaseName: zappppppix
+    user: zappppppix
+    plan: free
